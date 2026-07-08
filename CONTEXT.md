@@ -5,7 +5,7 @@ A personal portfolio and career-tracking site for Belascu Dorin — a single scr
 ## Language
 
 **Now Section**:
-The section of the site showing Dorin's currently active employment. Updated manually when roles start or end. Does not include side projects or self-development items.
+The section of the site showing what Dorin is actively doing at this moment. Updated manually. Contains three sub-areas: active employment (currently: Grubhub contract), active side projects (currently: nutrichefdelivery.ro — placeholder for further details), and self-development (currently learning — placeholder for books, courses, or technologies being deliberately acquired).
 _Avoid_: In progress, current work, active projects
 
 **Experience**:
