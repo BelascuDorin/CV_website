@@ -1,25 +1,18 @@
+import { hero, now, experience, skills, contact } from "@/data";
+import Hero from "@/components/sections/Hero";
+import NowSection from "@/components/sections/NowSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
+import SkillsSection from "@/components/sections/SkillsSection";
+import ContactSection from "@/components/sections/ContactSection";
+
 export default function Home() {
   return (
     <>
-      <section id="hero" className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-400 text-sm">Hero — coming in issue #5</p>
-      </section>
-
-      <section id="now" className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-400 text-sm">Now Section — coming in issue #6</p>
-      </section>
-
-      <section id="experience" className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-400 text-sm">Experience — coming in issue #7</p>
-      </section>
-
-      <section id="skills" className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-400 text-sm">Skills — coming in issue #8</p>
-      </section>
-
-      <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-400 text-sm">Contact — coming in issue #9</p>
-      </section>
+      <Hero data={hero} contact={contact} />
+      <NowSection data={now} />
+      <ExperienceSection data={experience} />
+      <SkillsSection data={skills} />
+      <ContactSection data={contact} />
     </>
   );
 }
