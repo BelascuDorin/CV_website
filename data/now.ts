@@ -5,7 +5,7 @@ const now: NowData = {
     company: "Grubhub",
     role: "Senior Software Engineer (Contract)",
     description: "Placeholder — add a sentence about what you're working on at Grubhub.",
-    startDate: "Jan 2025",
+    startDate: "Apr 2024",
   },
   sideProjects: [
     {
