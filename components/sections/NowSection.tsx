@@ -7,13 +7,13 @@ interface NowSectionProps {
 
 export default function NowSection({ data }: NowSectionProps) {
   return (
-    <section id="now" className="bg-slate-50">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
+    <section id="now" className="bg-slate-100">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         <SectionHeader label="Now" title="What I'm doing right now" />
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
           {/* Active Employment */}
-          <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
               Active employment
             </p>
@@ -28,7 +28,7 @@ export default function NowSection({ data }: NowSectionProps) {
           </div>
 
           {/* Side Projects */}
-          <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
               Side projects
             </p>
@@ -54,7 +54,7 @@ export default function NowSection({ data }: NowSectionProps) {
           </div>
 
           {/* Self-Development */}
-          <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
               Self-development
             </p>

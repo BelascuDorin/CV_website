@@ -7,8 +7,8 @@ interface ContactSectionProps {
 
 export default function ContactSection({ data }: ContactSectionProps) {
   return (
-    <section id="contact" className="bg-white">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
+    <section id="contact" className="bg-white border-t-2 border-slate-200">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         <SectionHeader label="Contact" title="Get in touch" />
 
         <p className="mt-4 text-base text-gray-500 max-w-md">

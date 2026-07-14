@@ -7,8 +7,8 @@ interface ExperienceSectionProps {
 
 export default function ExperienceSection({ data }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="bg-white">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
+    <section id="experience" className="bg-white border-t-2 border-slate-200">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         <SectionHeader label="Experience" title="Professional history" />
 
         <ol className="mt-10 space-y-10 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-slate-100">

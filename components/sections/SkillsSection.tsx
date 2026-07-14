@@ -35,8 +35,8 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
   );
 
   return (
-    <section id="skills" className="bg-slate-50">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
+    <section id="skills" className="bg-slate-100">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         <SectionHeader label="Skills" title="What I work with" />
 
         <div className="mt-10 space-y-10">
