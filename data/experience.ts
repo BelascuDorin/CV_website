@@ -16,13 +16,13 @@ const experience: ExperienceEntry[] = [
   },
 
   {
-    company: "nutrichefdelivery.ro · usercompass.tech",
+    company: "nutrichefdelivery.ro",
     title: "Cofounder & CTO",
     startDate: "Mar 2025",
     endDate: "Present",
     bullets: [
-      "Built nutrichefdelivery.ro from scratch with Next.js, Stripe, and Sentry, reaching ~1,000 orders and 115 users in the first year.",
-      "Co-built usercompass.tech, a churn-reduction SaaS connecting customer feedback to Stripe revenue data, shipped in a 3-person team.",
+      "Built the platform from scratch with Next.js, Stripe, and Sentry, reaching ~1,000 orders and 115 users in the first year.",
+      "Scaled to ~30 daily orders through continuous UX iteration; integrated payments, error monitoring, and analytics from day one.",
     ],
   },
 

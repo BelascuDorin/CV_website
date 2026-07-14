@@ -4,7 +4,7 @@ const now: NowData = {
   employment: {
     company: "Grubhub",
     role: "Senior Software Engineer (Contract)",
-    description: "Placeholder — add a sentence about what you're working on at Grubhub.",
+    description: "Building consumer-facing features across the Grubhub app — from personalised offers and subscriptions to cross-platform authentication migrations.",
     startDate: "Apr 2024",
   },
   sideProjects: [
@@ -17,7 +17,7 @@ const now: NowData = {
   selfDevelopment: {
     description: "Currently focused on:",
     items: [
-      "Placeholder — add a book, course, or technology you're deliberately acquiring.",
+      "Reading Domain-Driven Design by Eric Evans",
     ],
   },
 };
