@@ -4,9 +4,9 @@
   --font-sans: var(--font-geist-sans);
 }
 
-/* Offset anchor scroll targets so they aren't hidden under the sticky nav (56px = h-14) */
+/* Offset anchor scroll targets below the floating pill nav (top-4=16px + pill≈40px + buffer) */
 html {
-  scroll-padding-top: 56px;
+  scroll-padding-top: 72px;
 }
 
 /* Hide scrollbar on the nav overflow container while keeping scroll behaviour */

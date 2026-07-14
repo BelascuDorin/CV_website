@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Skill, SkillCategory } from "@/data/types";
+import SectionHeader from "@/components/SectionHeader";
 
 interface SkillsSectionProps {
   data: Skill[];
@@ -34,8 +35,8 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
   );
 
   return (
-    <section id="skills" className="bg-gray-50 border-t border-gray-100">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-20 sm:py-28">
+    <section id="skills" className="bg-indigo-50">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <SectionHeader label="Skills" title="What I work with" />
 
         <div className="mt-10 space-y-10">
@@ -45,7 +46,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
 
             return (
               <div key={category}>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
                   {category}
                 </p>
                 <ul className="space-y-1">
@@ -68,7 +69,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                           <span className="font-medium text-gray-900">{skill.name}</span>
                           {hasProofs && (
                             <span
-                              className={`text-gray-400 text-xs transition-transform duration-200 shrink-0 ${
+                              className={`text-indigo-400 text-xs transition-transform duration-200 shrink-0 ${
                                 isOpen ? "rotate-180" : ""
                               }`}
                             >
@@ -83,11 +84,11 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                             isOpen ? "max-h-[600px]" : "max-h-0"
                           }`}
                         >
-                          <ul className="bg-white px-4 pb-4 space-y-3 border-t border-gray-50">
+                          <ul className="bg-white px-4 pb-4 space-y-3 border-t border-indigo-50">
                             {skill.proofs.map((proof, i) => (
                               <li
                                 key={i}
-                                className="pt-3 border-t border-gray-50 first:border-0 first:pt-3"
+                                className="pt-3 border-t border-indigo-50 first:border-0 first:pt-3"
                               >
                                 <p className="text-sm font-medium text-gray-800">
                                   {proof.claim}
@@ -97,7 +98,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                                   href={proof.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="mt-1 inline-block text-xs text-blue-600 hover:underline"
+                                  className="mt-1 inline-block text-xs text-indigo-600 hover:underline"
                                 >
                                   {proof.url} ↗
                                 </a>
@@ -115,16 +116,5 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
         </div>
       </div>
     </section>
-  );
-}
-
-function SectionHeader({ label, title }: { label: string; title: string }) {
-  return (
-    <div>
-      <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-2">
-        {label}
-      </p>
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">{title}</h2>
-    </div>
   );
 }

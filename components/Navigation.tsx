@@ -28,8 +28,6 @@ export default function Navigation() {
           }
         });
       },
-      // Fires when a section enters a band near the top of the viewport.
-      // -20% top, -70% bottom leaves a 10% active zone just below the nav.
       { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
     );
 
@@ -38,24 +36,23 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-8">
-        <ul className="flex items-center gap-1 h-14 overflow-x-auto scrollbar-none">
-          {NAV_ITEMS.map(({ id, label }) => (
-            <li key={id} className="shrink-0">
-              <a
-                href={`#${id}`}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  activeSection === id
-                    ? "text-gray-900 bg-gray-100"
-                    : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
-                }`}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
+    // pointer-events-none on the outer container so the transparent
+    // area around the pill doesn't block page clicks
+    <nav className="sticky top-4 z-50 flex justify-center px-4 pointer-events-none">
+      <div className="pointer-events-auto flex items-center gap-1 px-2 py-1.5 bg-white/80 backdrop-blur-md rounded-full shadow-md border border-gray-200/60 overflow-x-auto scrollbar-none">
+        {NAV_ITEMS.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              activeSection === id
+                ? "bg-indigo-600 text-white shadow-sm"
+                : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+            }`}
+          >
+            {label}
+          </a>
+        ))}
       </div>
     </nav>
   );
