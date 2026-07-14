@@ -6,7 +6,7 @@ interface SectionHeaderProps {
 export default function SectionHeader({ label, title }: SectionHeaderProps) {
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">
+      <p className="text-xs font-semibold uppercase tracking-widest text-teal-600 mb-2">
         {label}
       </p>
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">{title}</h2>
