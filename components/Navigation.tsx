@@ -46,7 +46,7 @@ export default function Navigation() {
             href={`#${id}`}
             className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
               activeSection === id
-                ? "bg-indigo-600 text-white shadow-sm"
+                ? "bg-emerald-600 text-white shadow-sm"
                 : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
             }`}
           >

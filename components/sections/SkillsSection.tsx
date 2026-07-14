@@ -35,7 +35,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
   );
 
   return (
-    <section id="skills" className="bg-indigo-50">
+    <section id="skills" className="bg-emerald-50">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <SectionHeader label="Skills" title="What I work with" />
 
@@ -46,7 +46,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
 
             return (
               <div key={category}>
-                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-4">
                   {category}
                 </p>
                 <ul className="space-y-1">
@@ -69,7 +69,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                           <span className="font-medium text-gray-900">{skill.name}</span>
                           {hasProofs && (
                             <span
-                              className={`text-indigo-400 text-xs transition-transform duration-200 shrink-0 ${
+                              className={`text-emerald-400 text-xs transition-transform duration-200 shrink-0 ${
                                 isOpen ? "rotate-180" : ""
                               }`}
                             >
@@ -84,11 +84,11 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                             isOpen ? "max-h-[600px]" : "max-h-0"
                           }`}
                         >
-                          <ul className="bg-white px-4 pb-4 space-y-3 border-t border-indigo-50">
+                          <ul className="bg-white px-4 pb-4 space-y-3 border-t border-emerald-50">
                             {skill.proofs.map((proof, i) => (
                               <li
                                 key={i}
-                                className="pt-3 border-t border-indigo-50 first:border-0 first:pt-3"
+                                className="pt-3 border-t border-emerald-50 first:border-0 first:pt-3"
                               >
                                 <p className="text-sm font-medium text-gray-800">
                                   {proof.claim}
@@ -98,7 +98,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                                   href={proof.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="mt-1 inline-block text-xs text-indigo-600 hover:underline"
+                                  className="mt-1 inline-block text-xs text-emerald-600 hover:underline"
                                 >
                                   {proof.url} ↗
                                 </a>

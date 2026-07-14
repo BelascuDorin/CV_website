@@ -7,14 +7,14 @@ interface NowSectionProps {
 
 export default function NowSection({ data }: NowSectionProps) {
   return (
-    <section id="now" className="bg-indigo-50">
+    <section id="now" className="bg-emerald-50">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <SectionHeader label="Now" title="What I'm doing right now" />
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
           {/* Active Employment */}
-          <div className="bg-white rounded-xl p-6 border border-indigo-100 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">
+          <div className="bg-white rounded-xl p-6 border border-emerald-100 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500 mb-3">
               Active employment
             </p>
             <p className="font-semibold text-gray-900">{data.employment.company}</p>
@@ -28,8 +28,8 @@ export default function NowSection({ data }: NowSectionProps) {
           </div>
 
           {/* Side Projects */}
-          <div className="bg-white rounded-xl p-6 border border-indigo-100 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">
+          <div className="bg-white rounded-xl p-6 border border-emerald-100 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500 mb-3">
               Side projects
             </p>
             {data.sideProjects.map((project) => (
@@ -39,7 +39,7 @@ export default function NowSection({ data }: NowSectionProps) {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-gray-900 hover:text-indigo-600 transition-colors"
+                    className="font-semibold text-gray-900 hover:text-emerald-600 transition-colors"
                   >
                     {project.name} ↗
                   </a>
@@ -54,15 +54,15 @@ export default function NowSection({ data }: NowSectionProps) {
           </div>
 
           {/* Self-Development */}
-          <div className="bg-white rounded-xl p-6 border border-indigo-100 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">
+          <div className="bg-white rounded-xl p-6 border border-emerald-100 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500 mb-3">
               Self-development
             </p>
             <p className="text-sm text-gray-600 mb-3">{data.selfDevelopment.description}</p>
             <ul className="space-y-1.5">
               {data.selfDevelopment.items.map((item, i) => (
                 <li key={i} className="flex gap-2 text-sm text-gray-700">
-                  <span className="text-indigo-400 shrink-0">→</span>
+                  <span className="text-emerald-400 shrink-0">→</span>
                   {item}
                 </li>
               ))}

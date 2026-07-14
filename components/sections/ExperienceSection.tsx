@@ -11,11 +11,11 @@ export default function ExperienceSection({ data }: ExperienceSectionProps) {
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <SectionHeader label="Experience" title="Professional history" />
 
-        <ol className="mt-10 space-y-10 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-indigo-100">
+        <ol className="mt-10 space-y-10 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-emerald-100">
           {data.map((entry) => (
             <li key={`${entry.company}-${entry.startDate}`} className="pl-8 relative">
               {/* Timeline dot */}
-              <span className="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-indigo-600 ring-2 ring-white" />
+              <span className="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-emerald-600 ring-2 ring-white" />
 
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
@@ -23,7 +23,7 @@ export default function ExperienceSection({ data }: ExperienceSectionProps) {
                   <p className="font-semibold text-gray-900 text-lg leading-tight">
                     {entry.company}
                   </p>
-                  <p className="text-sm font-medium text-indigo-600">{entry.title}</p>
+                  <p className="text-sm font-medium text-emerald-600">{entry.title}</p>
                 </div>
                 <p className="text-xs text-gray-400 shrink-0">
                   {entry.startDate} – {entry.endDate}
@@ -34,7 +34,7 @@ export default function ExperienceSection({ data }: ExperienceSectionProps) {
               <ul className="mt-3 space-y-1.5">
                 {entry.bullets.map((bullet, i) => (
                   <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
-                    <span className="text-indigo-200 shrink-0 mt-0.5">•</span>
+                    <span className="text-emerald-200 shrink-0 mt-0.5">•</span>
                     {bullet}
                   </li>
                 ))}
