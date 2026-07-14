@@ -18,7 +18,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
         <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-4">
           <a
             href={`mailto:${data.email}`}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-teal-600 text-white text-sm font-semibold hover:bg-teal-700 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-600 text-white text-sm font-semibold hover:bg-slate-700 transition-colors"
           >
             {data.email}
           </a>
@@ -27,7 +27,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
             href={data.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-teal-300 hover:text-teal-700 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-slate-300 hover:text-slate-700 transition-colors"
           >
             LinkedIn ↗
           </a>
@@ -36,7 +36,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
             href={data.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-teal-300 hover:text-teal-700 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-slate-300 hover:text-slate-700 transition-colors"
           >
             GitHub ↗
           </a>
@@ -44,7 +44,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
           <a
             href={data.cvPdfUrl}
             download
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-teal-300 hover:text-teal-700 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:border-slate-300 hover:text-slate-700 transition-colors"
           >
             Download CV ↓
           </a>
