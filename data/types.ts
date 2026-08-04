@@ -44,6 +44,15 @@ export interface ExperienceEntry {
   bullets: string[];
 }
 
+// ─── Education ─────────────────────────────────────────────────────────────────
+
+export interface EducationEntry {
+  institution: string;
+  field: string;
+  startYear: string;
+  endYear: string;
+}
+
 // ─── Skills ──────────────────────────────────────────────────────────────────
 
 export type SkillCategory =

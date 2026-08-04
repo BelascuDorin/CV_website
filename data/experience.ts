@@ -12,17 +12,21 @@ const experience: ExperienceEntry[] = [
       "Built the auto-trial subscription feature that generated 20,000+ sign-ups at a ~75% conversion rate, totalling ~$200k in monthly recurring revenue.",
       "Led the full redesign of a personalised offers carousel surfacing user-activity-based price reductions at tens of thousands of impressions per day.",
       "Migrated Braze SDK to a breaking major version with a progressive rollout, Datadog observability, and zero production incidents.",
+      "Owned the cross-platform Login with Amazon → LWA migration end-to-end across web, iOS, and Android.",
+      "Delivered features end-to-end with tests (TestCafe, React Testing Library) and regular PR reviews as standard practice.",
     ],
   },
 
   {
-    company: "nutrichefdelivery.ro",
+    company: "nutrichefdelivery.ro · usercompass.tech",
     title: "Cofounder & CTO",
     startDate: "Mar 2025",
     endDate: "Present",
     bullets: [
-      "Built the platform from scratch with Next.js, Stripe, and Sentry, reaching ~1,000 orders and 115 users in the first year.",
+      "Built nutrichefdelivery.ro from scratch with Next.js, Stripe, and Sentry, reaching ~1,000 orders and 115 users in the first year.",
       "Scaled to ~30 daily orders through continuous UX iteration; integrated payments, error monitoring, and analytics from day one.",
+      "Co-built usercompass.tech — a churn-reduction SaaS connecting product feedback to Stripe revenue data — from Jan 2025.",
+      "Shipped both products with a BMAD AI-agent architecture in a 3-person team, from idea to production.",
     ],
   },
 

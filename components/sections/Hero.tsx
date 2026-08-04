@@ -15,12 +15,13 @@ export default function Hero({ data, contact }: HeroProps) {
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-14">
           {/* Headshot */}
-          <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden shrink-0 ring-4 ring-slate-100 shadow-lg">
+          <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden shrink-0 ring-4 ring-slate-100 shadow-lg">
             <Image
               src={data.headshotSrc}
               alt={`Photo of ${data.name}`}
               fill
-              className="object-cover object-top"
+              sizes="(min-width: 640px) 256px, 192px"
+              className="object-cover object-[50%_22%]"
               priority
             />
           </div>
