@@ -7,39 +7,62 @@ Structures my experience and ongoing work — a single scrolling page built spec
 
 ## Current state
 
-The full page is implemented and deployed. All content is placeholder — replace the data files before going live.
+Page order: **Hero → Now → Work → Education → Contact**.
+
+### The data model
+
+Everything on the page is a projection of one list. `Engagement → Project → Technology Usage` is the only place work is authored; the timeline, the filter, the technology counts, and the Now Section's side projects are all derived from it. See [`CONTEXT.md`](CONTEXT.md) for the vocabulary and [`docs/adr/`](docs/adr/) for why.
+
+| Concept | Meaning | Source file |
+|---|---|---|
+| **Engagement** | Where Dorin worked — company, title, dates. Describes no work itself. | `data/engagements.ts` |
+| **Project** | One distinct piece of work under an Engagement. | `data/engagements.ts` |
+| **Technology** | A technology or practice, authored once with an id and category. | `data/technologies.ts` |
+| **Technology Usage** | A Project's use of a Technology, plus the problem it solved there. | `data/engagements.ts` |
+| **Preset** | A named one-click filter state. | `data/presets.ts` |
+| Derived views | Filtering, counts, active-engagement lookups — all pure functions. | `data/selectors.ts` |
 
 ### What's built
 
-| Section | Status | Source file |
-|---|---|---|
-| Sticky Navigation + scroll-spy | ✅ | `components/Navigation.tsx` |
-| Hero (photo, name, role, bio) | ✅ | `components/sections/Hero.tsx` |
-| Now Section (employment, side projects, self-development) | ✅ | `components/sections/NowSection.tsx` |
-| Experience timeline | ✅ | `components/sections/ExperienceSection.tsx` |
-| Skills accordion + Proof Cards | ✅ | `components/sections/SkillsSection.tsx` |
-| Contact (email, LinkedIn, GitHub, PDF download) | ✅ | `components/sections/ContactSection.tsx` |
-| Typed data layer | ✅ | `data/` |
-| SEO metadata + OpenGraph | ✅ | `app/layout.tsx` |
+| Section | Source file |
+|---|---|
+| Sticky Navigation + scroll-spy | `components/Navigation.tsx` |
+| Hero (photo, name, role, bio) | `components/sections/Hero.tsx` |
+| Now Section — employment and side projects **derived** from active Engagements | `components/sections/NowSection.tsx` |
+| Work Section — Filter Bar + Timeline View / Filtered View | `components/sections/WorkSection.tsx`, `components/work/` |
+| Education | `components/sections/EducationSection.tsx` |
+| Contact (email, LinkedIn, GitHub, PDF download) | `components/sections/ContactSection.tsx` |
+| SEO metadata + OpenGraph | `app/layout.tsx` |
 
-### Before going live — fill in the placeholders
+### Filtering
 
-1. **`data/experience.ts`** — replace the three placeholder roles with your actual work history
-2. **`data/skills.ts`** — replace placeholder Skill Proofs with real outcomes and real URLs
-3. **`data/now.ts`** — add your Grubhub description and self-development items
-4. **`data/hero.ts`** — finalise the About bio (currently placeholder copy)
-5. **`public/cv-dorin-belascu.pdf`** — drop your PDF CV here
-6. **`data/contact.ts`** — verify LinkedIn URL slug is correct
+The Work Section reads its filter from the query string, so any filtered view is a shareable link:
 
-### Known issues from `/code-review` (to fix before launch)
+- `/?tech=react` — every project that used React, and what it solved on each
+- `/?tech=java,spring-boot,postgresql` — matches a project using **any** of them
+- `/?tech=react&kind=solo` — requires **both** facets
 
-| Finding | Axis | Priority |
-|---|---|---|
-| `SectionHeader` duplicated across 4 section files | Standards | Medium — extract to `components/SectionHeader.tsx` |
-| US-17: Proof Card collapse is at Skill level, not per-card | Spec | Medium — add per-card expand/collapse |
-| US-22: Mobile nav overflows on small screens | Spec | High — add collapsed/hamburger treatment |
-| Hero renders contact links not asked for in spec | Spec (scope creep) | Low — remove or keep as UX improvement |
-| US-4: About bio is one sentence, spec asks for 2–3 | Spec | Low — fix when writing final copy |
+Technology ids in `data/technologies.ts` are a public contract once a link has been sent. Add a new id rather than renaming an existing one; unknown ids are ignored so old links still render.
+
+### Commands
+
+```bash
+yarn dev         # dev server
+yarn test        # vitest — selector logic + data integrity
+yarn typecheck   # tsc --noEmit
+yarn lint        # eslint
+yarn build       # production build
+```
+
+`data/integrity.test.ts` is the guard on the registry-by-id design: a technology id that does not resolve is skipped at render time rather than erroring, so the test suite is what catches a typo, an unreferenced technology, or a preset that matches nothing.
+
+### Open items
+
+1. **Per-project dates** — `Project.startDate` / `endDate` are supported but unset; the Work Section falls back to the engagement's range. Fill them in where the real dates are known.
+2. **`data/engagements.ts`** — the `efera.ro` start date is a flagged placeholder (`TODO(dorin)`).
+3. **Marelli / Hanna projects** — decomposed into one project each from the old CV bullets; confirm the project names match reality.
+4. **Presets** — `data/presets.ts` currently guesses at the roles being targeted; align with actual applications.
+5. **Mobile nav** — still overflows on small screens; needs a collapsed treatment.
 
 ---
 
@@ -67,7 +90,23 @@ All 8 issues implemented sequentially then all sections in parallel. Each commit
 
 ### Step 5 — Code review (`/code-review`)
 
-Two-axis review (Standards + Spec) run against the full diff. Findings logged in the table above.
+Two-axis review (Standards + Spec) run against the full diff.
+
+> The steps above describe the original build. Its page order (Hero → Now → Experience → Skills → Contact) and its `Skill → Skill Proof` model were superseded by the restructure below.
+
+### Round two — restructure around Projects (`/grill-with-docs`, `/implement`)
+
+A second grilling session established that the data layer was authoring the same facts up to three times — the same Grubhub work appeared as an experience bullet and again inside four separate Skill Proofs — and that adding a projects overview plus technology filtering would have made it five copies.
+
+The interview resolved to a single spine and produced three ADRs:
+
+| ADR | Decision |
+|---|---|
+| [0001](docs/adr/0001-project-as-single-data-spine.md) | `Engagement → Project → Technology Usage` is the only place work is authored; every view is a projection |
+| [0002](docs/adr/0002-one-work-section-with-two-views.md) | One Work Section with a Timeline View and a Filtered View, replacing the Experience and Skills sections |
+| [0003](docs/adr/0003-filter-state-lives-in-the-url.md) | Filter state lives in the query string, so a filtered view is a shareable link |
+
+`data/experience.ts` and `data/skills.ts` were deleted. Vitest was added for the two seams worth testing: the pure selector logic and the integrity of the authored data.
 
 ### Agent skills installed
 

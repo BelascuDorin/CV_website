@@ -8,40 +8,90 @@ export interface HeroData {
   headshotSrc: string;
 }
 
-// ─── Now Section ─────────────────────────────────────────────────────────────
+// ─── Technologies ────────────────────────────────────────────────────────────
 
-export interface ActiveEmployment {
-  company: string;
-  role: string;
-  description: string;
-  startDate: string;
+export type TechnologyCategory =
+  | "Languages"
+  | "Frameworks & Libraries"
+  | "Tools & Platforms"
+  | "Practices";
+
+/**
+ * A technology or practice, authored once in the registry. Projects reference it
+ * by id, so it can never be spelled two ways or renamed in only one place.
+ *
+ * Ids are a public contract: they appear in shareable filter URLs (see
+ * docs/adr/0003-filter-state-lives-in-the-url.md), so renaming one breaks links
+ * that have already been sent to people.
+ */
+export interface Technology {
+  id: string;
+  name: string;
+  category: TechnologyCategory;
 }
 
-export interface SideProject {
+/**
+ * The link between a Project and one Technology — and the only place the
+ * "what problem did this solve" sentence is authored.
+ *
+ * `problem` is optional on purpose: a Project lists every technology it used,
+ * but only the ones where the choice was interesting earn a sentence.
+ */
+export interface TechnologyUsage {
+  technologyId: string;
+  problem?: string;
+}
+
+// ─── Engagements & Projects ──────────────────────────────────────────────────
+
+/**
+ * Distinguishes employment from self-directed work. Drives both the Now
+ * Section's split (employment vs side projects) and the Work Section's second
+ * filter facet.
+ */
+export type EngagementKind = "Contract" | "Employment" | "Cofounder" | "Solo";
+
+/** One distinct piece of work, belonging to exactly one Engagement. */
+export interface Project {
+  slug: string;
   name: string;
   description: string;
+  outcomes: string[];
+  technologies: TechnologyUsage[];
+  /** Omitted where the real dates are not known; never guessed. */
+  startDate?: string;
+  endDate?: string | "Present";
   url?: string;
 }
 
+/**
+ * Where Dorin was employed or self-employed for a period. Holds employment
+ * facts and no description of the work itself — that lives on its Projects.
+ */
+export interface Engagement {
+  slug: string;
+  company: string;
+  title: string;
+  kind: EngagementKind;
+  startDate: string;
+  endDate: string | "Present";
+  url?: string;
+  projects: Project[];
+}
+
+// ─── Now Section ─────────────────────────────────────────────────────────────
+
+/**
+ * Only the hand-authored part of the Now Section. Active employment and side
+ * projects are derived from the Engagements ending in "Present".
+ */
 export interface SelfDevelopment {
   description: string;
   items: string[];
 }
 
 export interface NowData {
-  employment: ActiveEmployment;
-  sideProjects: SideProject[];
   selfDevelopment: SelfDevelopment;
-}
-
-// ─── Experience ───────────────────────────────────────────────────────────────
-
-export interface ExperienceEntry {
-  company: string;
-  title: string;
-  startDate: string;
-  endDate: string | "Present";
-  bullets: string[];
 }
 
 // ─── Education ─────────────────────────────────────────────────────────────────
@@ -51,26 +101,6 @@ export interface EducationEntry {
   field: string;
   startYear: string;
   endYear: string;
-}
-
-// ─── Skills ──────────────────────────────────────────────────────────────────
-
-export type SkillCategory =
-  | "Languages"
-  | "Frameworks & Libraries"
-  | "Tools & Platforms"
-  | "Practices";
-
-export interface SkillProof {
-  claim: string;
-  outcome: string;
-  url: string;
-}
-
-export interface Skill {
-  name: string;
-  category: SkillCategory;
-  proofs: SkillProof[];
 }
 
 // ─── Contact ─────────────────────────────────────────────────────────────────

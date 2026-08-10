@@ -1,68 +1,112 @@
-import type { NowData } from "@/data/types";
+import type { Engagement, NowData } from "@/data/types";
+import { activeEngagements } from "@/data/selectors";
 import SectionHeader from "@/components/SectionHeader";
 
 interface NowSectionProps {
   data: NowData;
+  engagements: Engagement[];
 }
 
-export default function NowSection({ data }: NowSectionProps) {
+/**
+ * Both lists are derived, so either can legitimately come back empty — between
+ * contracts, or with no side project running. Say so rather than leaving a
+ * heading over blank space.
+ */
+function EmptyNote({ children }: { children: string }) {
+  return <p className="text-sm text-gray-400 italic">{children}</p>;
+}
+
+function EngagementSummary({ engagement }: { engagement: Engagement }) {
   return (
-    <section id="now" className="bg-slate-100">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
+    <div className="mb-5 last:mb-0">
+      {engagement.url ? (
+        <a
+          href={engagement.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-gray-900 transition-colors hover:text-slate-600"
+        >
+          {engagement.company} ↗
+        </a>
+      ) : (
+        <p className="font-semibold text-gray-900">{engagement.company}</p>
+      )}
+      <p className="mt-0.5 text-sm text-gray-600">{engagement.title}</p>
+      <p className="mt-0.5 text-xs text-gray-400">
+        Since {engagement.startDate}
+      </p>
+      <ul className="mt-2 space-y-1">
+        {engagement.projects.map((project) => (
+          <li key={project.slug} className="flex gap-2 text-sm text-gray-600">
+            <span className="shrink-0 text-slate-300">•</span>
+            {project.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/**
+ * Employment and side projects are derived from the engagements ending in
+ * "Present", so current work is never authored twice. Only self-development is
+ * hand-written in `data/now.ts`.
+ */
+export default function NowSection({ data, engagements }: NowSectionProps) {
+  const employment = activeEngagements(engagements, ["Contract", "Employment"]);
+  const sideProjects = activeEngagements(engagements, ["Cofounder", "Solo"]);
+
+  return (
+    <section id="now" className="scroll-mt-24 bg-slate-100">
+      <div className="mx-auto max-w-4xl px-6 py-8 sm:px-8 sm:py-12">
         <SectionHeader label="Now" title="What I'm doing right now" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
-          {/* Active Employment */}
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="mb-3 text-xs font-semibold tracking-widest text-slate-500 uppercase">
               Active employment
             </p>
-            <p className="font-semibold text-gray-900">{data.employment.company}</p>
-            <p className="text-sm text-gray-600 mt-0.5">{data.employment.role}</p>
-            <p className="text-xs text-gray-400 mt-0.5">Since {data.employment.startDate}</p>
-            {data.employment.description && (
-              <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-                {data.employment.description}
-              </p>
+            {employment.length > 0 ? (
+              employment.map((engagement) => (
+                <EngagementSummary
+                  key={engagement.slug}
+                  engagement={engagement}
+                />
+              ))
+            ) : (
+              <EmptyNote>
+                Between contracts — open to senior engineering roles.
+              </EmptyNote>
             )}
           </div>
 
-          {/* Side Projects */}
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="mb-3 text-xs font-semibold tracking-widest text-slate-500 uppercase">
               Side projects
             </p>
-            {data.sideProjects.map((project) => (
-              <div key={project.name} className="mb-4 last:mb-0">
-                {project.url ? (
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-gray-900 hover:text-slate-600 transition-colors"
-                  >
-                    {project.name} ↗
-                  </a>
-                ) : (
-                  <p className="font-semibold text-gray-900">{project.name}</p>
-                )}
-                <p className="mt-1 text-sm text-gray-600 leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            ))}
+            {sideProjects.length > 0 ? (
+              sideProjects.map((engagement) => (
+                <EngagementSummary
+                  key={engagement.slug}
+                  engagement={engagement}
+                />
+              ))
+            ) : (
+              <EmptyNote>Nothing running on the side right now.</EmptyNote>
+            )}
           </div>
 
-          {/* Self-Development */}
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="mb-3 text-xs font-semibold tracking-widest text-slate-500 uppercase">
               Self-development
             </p>
-            <p className="text-sm text-gray-600 mb-3">{data.selfDevelopment.description}</p>
+            <p className="mb-3 text-sm text-gray-600">
+              {data.selfDevelopment.description}
+            </p>
             <ul className="space-y-1.5">
-              {data.selfDevelopment.items.map((item, i) => (
-                <li key={i} className="flex gap-2 text-sm text-gray-700">
-                  <span className="text-slate-400 shrink-0">→</span>
+              {data.selfDevelopment.items.map((item) => (
+                <li key={item} className="flex gap-2 text-sm text-gray-700">
+                  <span className="shrink-0 text-slate-400">→</span>
                   {item}
                 </li>
               ))}
