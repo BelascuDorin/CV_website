@@ -7,7 +7,7 @@ A personal portfolio and career-tracking site for Belascu Dorin — a single scr
 ## Language
 
 **Hero**:
-The opening section of the page. Displays Dorin's name, headshot, role descriptor ("Senior Product Engineer"), and positioning line ("9+ years of experience in platform scaling and early-stage startups"), followed by a 2–3 sentence About bio (personal narrative: background, what drives Dorin, what he's looking for). A "What is this site for" card sits under the headshot (below the text on mobile): a one-line purpose, three numbered points on how to read the site, and a link down to the Work Section. Its sole job is to orient a recruiter in under 3 seconds and make them want to scroll. Contains no interactive elements beyond the Contact links.
+The opening section of the page. Displays Dorin's name, headshot, role descriptor ("Senior Product Engineer"), and positioning line ("9+ years of experience in platform scaling and early-stage startups"), followed by a 2–3 sentence About bio (personal narrative: background, what drives Dorin, what he's looking for). A "What is this site for" card sits under the headshot (below the text on mobile): a one-line purpose, three numbered points on how to read the site, and a link down to the Work Section. Its sole job is to orient a recruiter in under 3 seconds and make them want to scroll. Contains no interactive elements beyond the Contact links and the Assistant's Job Match call to action (omitted when the Assistant is disabled).
 _Avoid_: Banner, header, intro, above-the-fold
 
 **About**:
@@ -16,7 +16,7 @@ _Placeholder_: "Full-stack engineer with 9+ years building products at scale and
 _Avoid_: Bio section, summary section, personal statement
 
 **Navigation**:
-A sticky top navigation bar with anchor links to each page section (Hero, Now, Work, Education, Contact). Remains visible as the user scrolls. Helps recruiters jump directly to the section most relevant to them.
+A sticky top navigation bar with anchor links to each page section (Hero, Now, Work, Education, Contact). Remains visible as the user scrolls. Helps recruiters jump directly to the section most relevant to them. Also carries a button that opens the Assistant, so it is reachable from anywhere on the page.
 _Avoid_: Header nav, menu, sidebar nav
 
 **Now Section**:
@@ -70,3 +70,23 @@ _Avoid_: Skill Proof, claim, proof, evidence, rationale
 **Contact**:
 The set of links and actions available to reach Dorin: email (dorin.belascu@gmail.com), LinkedIn, GitHub, and a downloadable PDF CV.
 _Avoid_: Footer links, social links
+
+**Assistant**:
+The AI helper that answers a recruiter's questions about Dorin's experience, opened in a drawer from the Hero and the Navigation. Has two modes, Job Match and Ask. Knows only what Dorin has authored — the Engagement/Project/Technology data, Project Notes, and Candidate Notes — and never infers beyond it: anything without evidence is stated plainly as unknown and pointed to Dorin's email. Every Project it cites links to that Project's card on the page. Can be switched off entirely, in which case its entry points disappear. See docs/adr/0004-assistant-grounded-in-authored-data.md.
+_Avoid_: Agent, bot, chatbot, AI, copilot
+
+**Job Match**:
+The Assistant's primary mode: a recruiter pastes a job description and gets it back broken into its requirements, each with a Match Status and the Projects that evidence it, followed by a short summary and a way to contact Dorin. Also the name of the structured result it produces.
+_Avoid_: Fit score, analysis, JD check, scoring
+
+**Match Status**:
+How well Dorin's authored data evidences one requirement of a Job Match: **Strong** (cited Projects show it directly), **Partial** (adjacent or limited evidence, e.g. a side project rather than production), or **Gap** (no evidence in the data). A Strong or Partial status must cite at least one real Project; Gaps are shown to the recruiter, never hidden.
+_Avoid_: Score, rating, percentage, level
+
+**Candidate Notes**:
+The single hand-authored file of facts about Dorin as a candidate rather than about his work — working preferences, availability, prepared answers to sensitive questions (salary, notice period, relocation), and his openness to learning new technologies. Read only by the Assistant. Holds nothing about work, which belongs on Projects, so no work fact is authored twice. Everything in it is public.
+_Avoid_: Knowledge base, bio, profile, FAQ
+
+**Project Notes**:
+An optional field on a Project holding its deeper story — scope, team, decisions, what went wrong — for the Assistant to draw on. Never rendered on the page, which keeps Project Cards short. Public like everything else the Assistant reads.
+_Avoid_: Details, extended description, case study
