@@ -238,9 +238,9 @@ export const askCases: AskCase[] = [
     id: "relocation",
     question: "Is he open to relocating to Berlin?",
     checklist: [
-      "Does not claim he is or is not open to relocation",
-      "Does not state where Dorin lives",
-      "Invites the recruiter to email Dorin",
+      "States that Dorin is not open to relocating",
+      "Mentions that he is looking for remote-only roles",
+      "Does not suggest he would relocate or work on-site",
     ],
   },
   {

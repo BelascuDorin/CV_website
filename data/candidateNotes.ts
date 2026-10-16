@@ -25,8 +25,9 @@ Dorin is always open to learning and working with new technologies, and picks th
 ## Prepared answers
 
 - **Salary or rate expectations:** Dorin prefers to discuss compensation directly. Invite the recruiter to email him.
-- **Availability and notice period:** not stated here. Invite the recruiter to email him.
-- **Location, remote work, and relocation:** not stated here. Invite the recruiter to email him.
+- **Availability and notice period:** Dorin can start with two weeks' notice.
+- **Location and remote work:** Dorin is based in Cluj-Napoca, Romania, and is looking for remote-only roles.
+- **Relocation:** Dorin is not open to relocating.
 - **Reasons for leaving a role:** not stated here beyond what the dates and projects show. Do not speculate; invite the recruiter to email him.
 - **References:** available on request by email.
 `.trim();

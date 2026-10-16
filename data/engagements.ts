@@ -263,6 +263,7 @@ const engagements: Engagement[] = [
           "The site you are reading, with an Assistant that matches job descriptions against this CV and answers questions about my experience — built spec-first, with the domain model and decisions written before any code.",
         outcomes: [
           "Domain model in CONTEXT.md and decisions in docs/adr/ precede the implementation.",
+          "Job descriptions are matched requirement by requirement, citing real Projects and showing gaps honestly.",
         ],
         url: "https://github.com/BelascuDorin/CV_website",
         notes:
@@ -272,6 +273,18 @@ const engagements: Engagement[] = [
           { technologyId: "react" },
           { technologyId: "typescript" },
           { technologyId: "tailwind" },
+          { technologyId: "nodejs" },
+          {
+            technologyId: "zod",
+            problem:
+              "One schema both constrains the model's Job Match output and validates it before anything renders.",
+          },
+          {
+            technologyId: "vitest",
+            problem:
+              "Integrity tests keep the single data spine honest, and the Assistant is tested end to end with fakes, so the suite never spends API credit.",
+          },
+          { technologyId: "vercel" },
           {
             technologyId: "claude-code",
             problem:

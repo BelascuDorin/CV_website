@@ -27,6 +27,7 @@ const technologies: Technology[] = [
   { id: "nuxt", name: "Nuxt 4", category: "Frameworks & Libraries" },
   { id: "spring-boot", name: "Spring Boot", category: "Frameworks & Libraries" },
   { id: "tailwind", name: "Tailwind CSS", category: "Frameworks & Libraries" },
+  { id: "zod", name: "Zod", category: "Frameworks & Libraries" },
 
   // ─── Tools & Platforms ──────────────────────────────────────────────────────
   { id: "mapbox", name: "Mapbox", category: "Tools & Platforms" },
@@ -47,6 +48,8 @@ const technologies: Technology[] = [
   { id: "claude-code", name: "Claude Code", category: "Tools & Platforms" },
   { id: "claude-api", name: "Claude API", category: "Tools & Platforms" },
   { id: "upstash-redis", name: "Upstash Redis", category: "Tools & Platforms" },
+  { id: "vercel", name: "Vercel", category: "Tools & Platforms" },
+  { id: "vitest", name: "Vitest", category: "Tools & Platforms" },
 
   // ─── Practices ──────────────────────────────────────────────────────────────
   { id: "team-leadership", name: "Team Leadership", category: "Practices" },
