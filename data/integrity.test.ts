@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import candidateNotes from "./candidateNotes";
 import engagements from "./engagements";
 import presets from "./presets";
 import technologies from "./technologies";
@@ -151,5 +152,20 @@ describe("problem statements", () => {
     );
 
     expect(silent).toEqual([]);
+  });
+});
+
+describe("assistant sources", () => {
+  it("has non-empty Candidate Notes", () => {
+    expect(candidateNotes.trim().length).toBeGreaterThan(0);
+  });
+
+  it("gives every Project Notes field real content when present", () => {
+    const blank = listProjects(engagements)
+      .filter(({ project }) => project.notes !== undefined)
+      .filter(({ project }) => project.notes!.trim().length === 0)
+      .map(({ project }) => project.slug);
+
+    expect(blank).toEqual([]);
   });
 });

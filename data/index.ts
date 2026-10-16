@@ -5,6 +5,7 @@ export { default as technologies } from "./technologies";
 export { default as presets } from "./presets";
 export { default as education } from "./education";
 export { default as contact } from "./contact";
+export { default as candidateNotes } from "./candidateNotes";
 
 export type {
   HeroData,

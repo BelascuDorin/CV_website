@@ -69,6 +69,12 @@ export interface Project {
   startDate?: string;
   endDate?: string | "Present";
   url?: string;
+  /**
+   * Project Notes: the deeper story — scope, team, decisions, what went wrong —
+   * read by the Assistant and never rendered. Public like everything the
+   * Assistant reads, so never put anything here that could not be published.
+   */
+  notes?: string;
 }
 
 /**

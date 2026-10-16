@@ -45,6 +45,8 @@ const technologies: Technology[] = [
     category: "Tools & Platforms",
   },
   { id: "claude-code", name: "Claude Code", category: "Tools & Platforms" },
+  { id: "claude-api", name: "Claude API", category: "Tools & Platforms" },
+  { id: "upstash-redis", name: "Upstash Redis", category: "Tools & Platforms" },
 
   // ─── Practices ──────────────────────────────────────────────────────────────
   { id: "team-leadership", name: "Team Leadership", category: "Practices" },
