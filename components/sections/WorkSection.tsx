@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import SectionHeader from "@/components/SectionHeader";
-import FilterBar from "@/components/work/FilterBar";
+import FilterBar, { WORK_RESULTS_ID } from "@/components/work/FilterBar";
 import FilteredView from "@/components/work/FilteredView";
 import TimelineView from "@/components/work/TimelineView";
 import type { Preset } from "@/data/presets";
@@ -129,21 +129,23 @@ export default function WorkSection({
           onChange={applyFilter}
         />
 
-        {isActive ? (
-          <FilteredView
-            matches={matches}
-            technologies={technologyMap}
-            filter={filter}
-            onTechnologyClick={toggleTechnology}
-            onClear={clear}
-          />
-        ) : (
-          <TimelineView
-            engagements={engagements}
-            technologies={technologyMap}
-            onTechnologyClick={toggleTechnology}
-          />
-        )}
+        <div id={WORK_RESULTS_ID} className="scroll-mt-24">
+          {isActive ? (
+            <FilteredView
+              matches={matches}
+              technologies={technologyMap}
+              filter={filter}
+              onTechnologyClick={toggleTechnology}
+              onClear={clear}
+            />
+          ) : (
+            <TimelineView
+              engagements={engagements}
+              technologies={technologyMap}
+              onTechnologyClick={toggleTechnology}
+            />
+          )}
+        </div>
       </div>
     </section>
   );

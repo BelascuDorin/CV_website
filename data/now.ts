@@ -9,9 +9,7 @@ const now: NowData = {
   selfDevelopment: {
     description: "Currently focused on:",
     items: [
-      "Reading Domain-Driven Design by Eric Evans",
-      "Learning Java Spring on Udemy",
-      "Putting both into practice in reinvent — Spring Boot backend, Nuxt frontend",
+      "Learning to become an AI engineer, with Claude as my guide",
     ],
   },
 };

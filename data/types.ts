@@ -4,7 +4,14 @@ export interface HeroData {
   name: string;
   role: string;
   positioning: string;
-  bio: string;
+  /** One string per paragraph. */
+  bio: string[];
+  /** Card under the headshot telling a first-time visitor what the site is for. */
+  purpose: {
+    title: string;
+    description: string;
+    points: string[];
+  };
   headshotSrc: string;
 }
 

@@ -11,7 +11,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         <SectionHeader label="Contact" title="Get in touch" />
 
-        <p className="mt-4 text-base text-gray-500 max-w-md">
+        <p className="mt-4 text-base text-gray-500 max-w-xl">
           Open to senior engineering roles. Best way to reach me is by email.
         </p>
 

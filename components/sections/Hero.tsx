@@ -8,22 +8,57 @@ interface HeroProps {
 
 export default function Hero({ data, contact }: HeroProps) {
   return (
-    <section
-      id="hero"
-      className="bg-gradient-to-b from-slate-50 to-white"
-    >
+    <section id="hero" className="bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 py-16 sm:py-24">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-14">
-          {/* Headshot */}
-          <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden shrink-0 ring-4 ring-slate-100 shadow-lg">
-            <Image
-              src={data.headshotSrc}
-              alt={`Photo of ${data.name}`}
-              fill
-              sizes="(min-width: 640px) 256px, 192px"
-              className="object-cover object-[50%_22%]"
-              priority
-            />
+          {/* On mobile this wrapper dissolves so the card can drop below the text. */}
+          <div className="contents sm:flex sm:flex-col sm:items-center sm:gap-8 sm:shrink-0 sm:w-64">
+            {/* Headshot */}
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden shrink-0 ring-4 ring-slate-100 shadow-lg">
+              <Image
+                src={data.headshotSrc}
+                alt={`Photo of ${data.name}`}
+                fill
+                sizes="(min-width: 640px) 256px, 192px"
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            {/* Site purpose */}
+            <aside
+              aria-labelledby="site-purpose-title"
+              className="order-last sm:order-none w-full max-w-sm rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-sm"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                First time here?
+              </p>
+              <h2
+                id="site-purpose-title"
+                className="mt-1 text-base font-bold text-gray-900"
+              >
+                {data.purpose.title}
+              </h2>
+              <p className="mt-1 text-sm text-gray-600 leading-relaxed">
+                {data.purpose.description}
+              </p>
+              <ul className="mt-4 space-y-2.5">
+                {data.purpose.points.map((point, i) => (
+                  <li key={point} className="flex gap-3 text-sm text-gray-700">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-600 text-[11px] font-semibold text-white">
+                      {i + 1}
+                    </span>
+                    <span className="leading-snug">{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#work"
+                className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-slate-900"
+              >
+                Explore my work <span aria-hidden="true">↓</span>
+              </a>
+            </aside>
           </div>
 
           {/* Text */}
@@ -31,11 +66,15 @@ export default function Hero({ data, contact }: HeroProps) {
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
               {data.name}
             </h1>
-            <p className="mt-2 text-lg font-semibold text-slate-600">{data.role}</p>
-            <p className="mt-1 text-sm text-gray-500">{data.positioning}</p>
-            <p className="mt-5 text-base text-gray-600 leading-relaxed max-w-xl">
-              {data.bio}
+            <p className="mt-2 text-lg font-semibold text-slate-600">
+              {data.role}
             </p>
+            <p className="mt-1 text-sm text-gray-500">{data.positioning}</p>
+            <div className="mt-5 max-w-xl space-y-4 text-base text-gray-600 leading-relaxed">
+              {data.bio.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
 
             {/* Contact shortcuts */}
             <div className="mt-7 flex flex-wrap justify-center sm:justify-start gap-3 text-sm font-medium">

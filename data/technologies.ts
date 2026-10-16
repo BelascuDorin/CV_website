@@ -21,6 +21,7 @@ const technologies: Technology[] = [
   { id: "react", name: "React.js", category: "Frameworks & Libraries" },
   { id: "nextjs", name: "Next.js", category: "Frameworks & Libraries" },
   { id: "redux", name: "Redux", category: "Frameworks & Libraries" },
+  { id: "redux-toolkit", name: "Redux Toolkit", category: "Frameworks & Libraries" },
   { id: "nodejs", name: "Node.js", category: "Frameworks & Libraries" },
   { id: "vue", name: "Vue 3", category: "Frameworks & Libraries" },
   { id: "nuxt", name: "Nuxt 4", category: "Frameworks & Libraries" },
@@ -62,6 +63,7 @@ const technologies: Technology[] = [
     name: "AI-Assisted Development",
     category: "Practices",
   },
+  { id: "ai-integration", name: "AI Integration", category: "Practices" },
   {
     id: "project-management",
     name: "Project Management",

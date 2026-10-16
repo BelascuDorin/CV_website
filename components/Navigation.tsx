@@ -39,12 +39,12 @@ export default function Navigation() {
     // pointer-events-none on the outer container so the transparent
     // area around the pill doesn't block page clicks
     <nav className="sticky top-4 z-50 flex justify-center px-4 pointer-events-none">
-      <div className="pointer-events-auto flex items-center gap-1 px-2 py-1.5 bg-white/80 backdrop-blur-md rounded-full shadow-md border border-gray-200/60 overflow-x-auto scrollbar-none">
+      <div className="pointer-events-auto flex max-w-full items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-1.5 bg-white/80 backdrop-blur-md rounded-full shadow-md border border-gray-200/60 overflow-x-auto scrollbar-none">
         {NAV_ITEMS.map(({ id, label }) => (
           <a
             key={id}
             href={`#${id}`}
-            className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`shrink-0 px-3 sm:px-4 py-1.5 rounded-full text-[13px] sm:text-sm font-medium transition-colors ${
               activeSection === id
                 ? "bg-slate-600 text-white shadow-sm"
                 : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"

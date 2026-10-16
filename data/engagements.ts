@@ -157,41 +157,12 @@ const engagements: Engagement[] = [
             problem:
               "Catch checkout errors in production before a customer had to report them.",
           },
+          { technologyId: "ai-integration" },
           {
             technologyId: "ai-assisted-development",
             problem:
               "Shipped a production product end to end with a 3-person team, using a BMAD agent architecture.",
           },
-        ],
-      },
-    ],
-  },
-
-  {
-    slug: "usercompass",
-    company: "usercompass.tech",
-    title: "Cofounder",
-    kind: "Cofounder",
-    startDate: "Jan 2025",
-    endDate: "Present",
-    url: "https://usercompass.tech",
-    projects: [
-      {
-        slug: "usercompass-saas",
-        name: "Churn-reduction SaaS",
-        description:
-          "Co-built a product that connects product feedback to revenue data, so churn signals arrive with a value attached.",
-        outcomes: ["Taken from idea to production by a 3-person team."],
-        technologies: [
-          { technologyId: "nextjs" },
-          { technologyId: "react" },
-          { technologyId: "typescript" },
-          {
-            technologyId: "stripe",
-            problem:
-              "Joined qualitative feedback to real subscription revenue, so churn risk could be ranked by the money behind it.",
-          },
-          { technologyId: "ai-assisted-development" },
         ],
       },
     ],
@@ -313,6 +284,36 @@ const engagements: Engagement[] = [
   // ─── Past ─────────────────────────────────────────────────────────────────
 
   {
+    slug: "usercompass",
+    company: "usercompass.tech",
+    title: "Cofounder",
+    kind: "Cofounder",
+    startDate: "Jan 2025",
+    endDate: "2026",
+    url: "https://usercompass.tech",
+    projects: [
+      {
+        slug: "usercompass-saas",
+        name: "Churn-reduction SaaS",
+        description:
+          "Co-built a product that connects product feedback to revenue data, so churn signals arrive with a value attached.",
+        outcomes: ["Taken from idea to production by a 3-person team."],
+        technologies: [
+          { technologyId: "nextjs" },
+          { technologyId: "react" },
+          { technologyId: "typescript" },
+          {
+            technologyId: "stripe",
+            problem:
+              "Joined qualitative feedback to real subscription revenue, so churn risk could be ranked by the money behind it.",
+          },
+          { technologyId: "ai-assisted-development" },
+        ],
+      },
+    ],
+  },
+
+  {
     slug: "fortech-urbio",
     company: "Fortech · urb.io",
     title: "React Developer",
@@ -336,6 +337,8 @@ const engagements: Engagement[] = [
             problem:
               "Rebuilt the platform as composable components, so the next product change would not require another rewrite.",
           },
+          { technologyId: "nextjs" },
+          { technologyId: "redux-toolkit" },
           { technologyId: "typescript" },
           {
             technologyId: "javascript",
@@ -364,6 +367,8 @@ const engagements: Engagement[] = [
               "Let energy planners draw and route heat networks over real geography, with demand and return on investment computed from what they drew.",
           },
           { technologyId: "react" },
+          { technologyId: "nextjs" },
+          { technologyId: "redux-toolkit" },
           { technologyId: "javascript" },
         ],
       },

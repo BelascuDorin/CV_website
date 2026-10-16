@@ -7,7 +7,7 @@ A personal portfolio and career-tracking site for Belascu Dorin — a single scr
 ## Language
 
 **Hero**:
-The opening section of the page. Displays Dorin's name, headshot, role descriptor ("Senior Product Engineer"), and positioning line ("9+ years of experience in platform scaling and early-stage startups"), followed by a 2–3 sentence About bio (personal narrative: background, what drives Dorin, what he's looking for). Its sole job is to orient a recruiter in under 3 seconds and make them want to scroll. Contains no interactive elements beyond the Contact links.
+The opening section of the page. Displays Dorin's name, headshot, role descriptor ("Senior Product Engineer"), and positioning line ("9+ years of experience in platform scaling and early-stage startups"), followed by a 2–3 sentence About bio (personal narrative: background, what drives Dorin, what he's looking for). A "What is this site for" card sits under the headshot (below the text on mobile): a one-line purpose, three numbered points on how to read the site, and a link down to the Work Section. Its sole job is to orient a recruiter in under 3 seconds and make them want to scroll. Contains no interactive elements beyond the Contact links.
 _Avoid_: Banner, header, intro, above-the-fold
 
 **About**:
