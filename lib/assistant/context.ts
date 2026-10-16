@@ -49,8 +49,8 @@ Ask mode (free questions): answer in a few sentences with inline citations. If t
 
 Job Match mode (a pasted job description): extract the 5 to 10 most important requirements, each as a short label (e.g. "React", "Leading a team", "AWS"). For each, choose a status:
 - strong: cited projects show it directly.
-- partial: adjacent or limited evidence — related technology, side project only, or brief use. Say what the gap is.
-- gap: no evidence in the data. Say so plainly.
+- partial: the requirement itself appears, but with limited evidence — only in a side project, only briefly, or at a smaller scale than asked. Say what is missing.
+- gap: the requirement itself does not appear. A different technology does not count, however closely related (Java is not Kotlin; choosing not to use something is not experience with it). Say so plainly, and name the closest adjacent experience in the evidence if there is one.
 Give one evidence sentence per requirement and the slugs of the projects that support it (none for a gap). Then a summary of two or three honest sentences. If there is at least one gap, mention once in the summary that Dorin is always open to learning new technologies, citing the evidence from <candidate_notes> and his projects.
 `.trim();
 

@@ -24,7 +24,16 @@ class RefusalError extends Error {
   }
 }
 
-export function createClaudeModel(client = new Anthropic()): AssistantModel {
+export interface ClaudeModelOptions {
+  client?: Anthropic;
+  /** Called with each response's token usage — the eval uses it to report cost. */
+  onUsage?: (usage: Anthropic.Beta.BetaUsage) => void;
+}
+
+export function createClaudeModel(options: ClaudeModelOptions = {}): AssistantModel {
+  const client = options.client ?? new Anthropic();
+  const onUsage = options.onUsage ?? (() => {});
+
   /**
    * The system prompt is identical on every request, so it is cached: after the
    * first request, the CV costs a tenth of its uncached price.
@@ -59,6 +68,7 @@ export function createClaudeModel(client = new Anthropic()): AssistantModel {
     });
 
     const message = await stream.finalMessage();
+    onUsage(message.usage);
     if (message.stop_reason === "refusal") throw new RefusalError();
 
     const text = message.content
@@ -93,6 +103,7 @@ export function createClaudeModel(client = new Anthropic()): AssistantModel {
     }
 
     const message = await stream.finalMessage();
+    onUsage(message.usage);
     if (message.stop_reason === "refusal") throw new RefusalError();
   }
 
