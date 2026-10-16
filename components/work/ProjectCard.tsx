@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { projectCardId } from "@/components/assistant/showProject";
 import type { Engagement, Project, Technology } from "@/data/types";
 
 interface ProjectCardProps {
@@ -53,7 +54,11 @@ export default function ProjectCard({
   const range = dateRange(project, engagement);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    // The id is what Assistant citations scroll to.
+    <div
+      id={projectCardId(project.slug)}
+      className="scroll-mt-24 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow"
+    >
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
         <div>
           <p className="font-semibold leading-tight text-gray-900">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import AssistantButton from "@/components/assistant/AssistantButton";
 
 const NAV_ITEMS = [
   { id: "hero", label: "Home" },
@@ -53,6 +54,7 @@ export default function Navigation() {
             {label}
           </a>
         ))}
+        <AssistantButton variant="nav" />
       </div>
     </nav>
   );

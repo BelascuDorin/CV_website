@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AssistantButton from "@/components/assistant/AssistantButton";
 import type { HeroData, ContactData } from "@/data/types";
 
 interface HeroProps {
@@ -75,6 +76,8 @@ export default function Hero({ data, contact }: HeroProps) {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+
+            <AssistantButton variant="hero" />
 
             {/* Contact shortcuts */}
             <div className="mt-7 flex flex-wrap justify-center sm:justify-start gap-3 text-sm font-medium">

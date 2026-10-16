@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import SectionHeader from "@/components/SectionHeader";
+import { CLEAR_WORK_FILTER_EVENT } from "@/components/assistant/showProject";
 import FilterBar, { WORK_RESULTS_ID } from "@/components/work/FilterBar";
 import FilteredView from "@/components/work/FilteredView";
 import TimelineView from "@/components/work/TimelineView";
@@ -94,6 +95,12 @@ export default function WorkSection({
   const isActive = isFilterActive(filter);
 
   const clear = useCallback(() => applyFilter(EMPTY_FILTER), [applyFilter]);
+
+  // An Assistant citation to a card the current filter hides clears the filter.
+  useEffect(() => {
+    window.addEventListener(CLEAR_WORK_FILTER_EVENT, clear);
+    return () => window.removeEventListener(CLEAR_WORK_FILTER_EVENT, clear);
+  }, [clear]);
 
   const toggleTechnology = useCallback(
     (technologyId: string) => {
