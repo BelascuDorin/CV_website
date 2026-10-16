@@ -74,7 +74,7 @@ export function createClaudeModel(options: ClaudeModelOptions = {}): AssistantMo
     const text = message.content
       .map((block) => (block.type === "text" ? block.text : ""))
       .join("");
-    // Unvalidated on purpose: the Answer Validator owns what counts as valid.
+    // Unvalidated on purpose: the answer validator owns what counts as valid.
     return JSON.parse(text);
   }
 

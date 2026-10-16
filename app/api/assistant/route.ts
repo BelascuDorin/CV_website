@@ -5,7 +5,7 @@ import { clientIdFromIp } from "@/lib/assistant/store";
 
 /**
  * The Assistant's only server boundary: it holds the API key and translates
- * HTTP to and from the Assistant Service, which owns every decision.
+ * HTTP to and from the assistant service, which owns every decision.
  *
  *   POST { mode: "job-match", jobDescription }  → JSON { match }
  *   POST { mode: "ask", conversation }          → NDJSON stream of AskEvents

@@ -1,6 +1,6 @@
 import * as data from "@/data";
 import { isAssistantEnabled } from "./config";
-import { buildAssistantContext, knownProjectSlugs } from "./context";
+import { assistantSourcesFrom, buildAssistantContext, knownProjectSlugs } from "./context";
 import { createClaudeModel } from "./model";
 import { createAssistantService, type AssistantService } from "./service";
 import { createUpstashStore } from "./store";
@@ -11,15 +11,7 @@ let service: AssistantService | undefined;
 export function getAssistantService(): AssistantService {
   service ??= createAssistantService({
     enabled: isAssistantEnabled(),
-    system: buildAssistantContext({
-      hero: data.hero,
-      engagements: data.engagements,
-      technologies: data.technologies,
-      now: data.now,
-      education: data.education,
-      contact: data.contact,
-      candidateNotes: data.candidateNotes,
-    }),
+    system: buildAssistantContext(assistantSourcesFrom(data)),
     knownSlugs: knownProjectSlugs(data.engagements),
     model: createClaudeModel(),
     store: createUpstashStore(),

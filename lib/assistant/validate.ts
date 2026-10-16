@@ -25,17 +25,8 @@ export const JobMatchOutputSchema = z.object({
   summary: z.string(),
 });
 
-export interface MatchedRequirement {
-  requirement: string;
-  status: MatchStatus;
-  evidence: string;
-  projectSlugs: string[];
-}
-
-export interface JobMatch {
-  requirements: MatchedRequirement[];
-  summary: string;
-}
+export type JobMatch = z.infer<typeof JobMatchOutputSchema>;
+export type MatchedRequirement = JobMatch["requirements"][number];
 
 /** Replaces the model's evidence when its only support turned out not to exist. */
 export const DEMOTED_EVIDENCE = "No evidence of this in Dorin's CV.";

@@ -1,17 +1,9 @@
 import { describe, expect, it } from "vitest";
 import * as data from "@/data";
 import { listProjects } from "@/data/selectors";
-import { buildAssistantContext, knownProjectSlugs, type AssistantSources } from "./context";
+import { assistantSourcesFrom, buildAssistantContext, knownProjectSlugs } from "./context";
 
-const SOURCES: AssistantSources = {
-  hero: data.hero,
-  engagements: data.engagements,
-  technologies: data.technologies,
-  now: data.now,
-  education: data.education,
-  contact: data.contact,
-  candidateNotes: data.candidateNotes,
-};
+const SOURCES = assistantSourcesFrom(data);
 
 describe("buildAssistantContext", () => {
   const context = buildAssistantContext(SOURCES);

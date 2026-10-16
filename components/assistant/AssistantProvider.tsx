@@ -29,6 +29,7 @@ interface AssistantProviderProps {
   /** Read at build time from ASSISTANT_ENABLED, so the page stays static. */
   enabled: boolean;
   projects: ProjectRef[];
+  contactEmail: string;
   children: React.ReactNode;
 }
 
@@ -39,6 +40,7 @@ interface AssistantProviderProps {
 export default function AssistantProvider({
   enabled,
   projects,
+  contactEmail,
   children,
 }: AssistantProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,6 +68,7 @@ export default function AssistantProvider({
           onModeChange={setMode}
           onClose={() => setIsOpen(false)}
           projects={projects}
+          contactEmail={contactEmail}
         />
       )}
     </AssistantContext.Provider>

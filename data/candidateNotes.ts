@@ -20,7 +20,7 @@ Senior engineering roles where product thinking is valued as much as technical d
 
 ## Learning new technologies
 
-Dorin is always open to learning and working with new technologies. He picks them up deliberately rather than waiting to be taught: the reinvent project exists specifically to learn Java, Spring Boot, Vue 3, and Nuxt 4 in depth, and he is currently learning to become an AI engineer. When a role needs something he has not used, say so honestly and point to this, citing the evidence from his projects.
+Dorin is always open to learning and working with new technologies, and picks them up deliberately rather than waiting to be taught. When a role needs something he has not used, say so honestly and point to this, citing the evidence in his CV: self-directed projects built to learn a new stack, and what he is currently learning.
 
 ## Prepared answers
 
@@ -29,10 +29,6 @@ Dorin is always open to learning and working with new technologies. He picks the
 - **Location, remote work, and relocation:** not stated here. Invite the recruiter to email him.
 - **Reasons for leaving a role:** not stated here beyond what the dates and projects show. Do not speculate; invite the recruiter to email him.
 - **References:** available on request by email.
-
-## Contact
-
-Email: dorin.belascu@gmail.com. LinkedIn and a downloadable PDF CV are linked on the page.
 `.trim();
 
 export default candidateNotes;

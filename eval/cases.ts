@@ -110,7 +110,8 @@ Early-stage startup, you'll own the product end to end.
       { label: /node/i, allowed: STRONG_OR_PARTIAL },
       { label: /stripe|payment/i, allowed: STRONG },
       { label: /zero|0|production|end to end|founding/i, allowed: STRONG },
-      { label: /sentry|monitor/i, allowed: STRONG },
+      // One production project uses Sentry; Strong and Partial are both defensible.
+      { label: /sentry|monitor/i, allowed: STRONG_OR_PARTIAL },
     ],
   },
   {

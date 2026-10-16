@@ -3,7 +3,7 @@
  * before launch and after any change of model, effort, or prompt. Never part of
  * `yarn test`.
  *
- * Runs every case through the real Assistant Service (real context, model, and
+ * Runs every case through the real assistant service (real context, model, and
  * validator; a fake store with no rate limit), grades Job Matches in code and
  * Ask answers with a cheap model, and reports the measured cost.
  *
@@ -16,7 +16,7 @@ import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { z } from "zod";
 import * as data from "@/data";
 import { EFFORT, MODEL } from "@/lib/assistant/config";
-import { buildAssistantContext, knownProjectSlugs } from "@/lib/assistant/context";
+import { assistantSourcesFrom, buildAssistantContext, knownProjectSlugs } from "@/lib/assistant/context";
 import { createClaudeModel } from "@/lib/assistant/model";
 import { createAssistantService, type LogEntry } from "@/lib/assistant/service";
 import { askCases, jobMatchCases } from "./cases";
@@ -36,6 +36,11 @@ interface UsageLike {
   cache_creation_input_tokens?: number | null;
 }
 
+// Fail before spending anything, not after: a model change must come with its prices.
+for (const model of [MODEL, GRADER_MODEL]) {
+  if (!PRICES[model]) throw new Error(`Add ${model} to PRICES in eval/run.ts before running the eval.`);
+}
+
 const spend: Record<string, number> = {};
 function record(model: string, usage: UsageLike) {
   const price = PRICES[model];
@@ -53,15 +58,7 @@ const logged: LogEntry[] = [];
 
 const service = createAssistantService({
   enabled: true,
-  system: buildAssistantContext({
-    hero: data.hero,
-    engagements: data.engagements,
-    technologies: data.technologies,
-    now: data.now,
-    education: data.education,
-    contact: data.contact,
-    candidateNotes: data.candidateNotes,
-  }),
+  system: buildAssistantContext(assistantSourcesFrom(data)),
   knownSlugs: knownProjectSlugs(data.engagements),
   model: createClaudeModel({ client, onUsage: (usage) => record(MODEL, usage) }),
   store: {

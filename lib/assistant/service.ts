@@ -180,6 +180,9 @@ export function createAssistantService(options: AssistantServiceOptions) {
 
 export type AssistantService = ReturnType<typeof createAssistantService>;
 
+const UNREADABLE_CONVERSATION =
+  "That conversation could not be read — please start a new one.";
+
 function checkConversation(conversation: ConversationTurn[]): string | null {
   if (!Array.isArray(conversation) || conversation.length === 0) {
     return "Ask a question first.";
@@ -188,13 +191,13 @@ function checkConversation(conversation: ConversationTurn[]): string | null {
   for (const [i, turn] of conversation.entries()) {
     const expected = i % 2 === 0 ? "user" : "assistant";
     if (turn?.role !== expected || typeof turn.content !== "string") {
-      return "That conversation could not be read — please start a new one.";
+      return UNREADABLE_CONVERSATION;
     }
   }
 
   const last = conversation[conversation.length - 1];
   if (last.role !== "user") {
-    return "That conversation could not be read — please start a new one.";
+    return UNREADABLE_CONVERSATION;
   }
 
   const questions = conversation.filter((turn) => turn.role === "user");
@@ -213,7 +216,7 @@ function checkConversation(conversation: ConversationTurn[]): string | null {
         turn.role === "assistant" && turn.content.length > MAX_ASSISTANT_TURN_CHARS
     )
   ) {
-    return "That conversation could not be read — please start a new one.";
+    return UNREADABLE_CONVERSATION;
   }
 
   return null;

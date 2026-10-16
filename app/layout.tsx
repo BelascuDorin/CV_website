@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import AssistantProvider from "@/components/assistant/AssistantProvider";
-import { engagements } from "@/data";
+import { contact, engagements } from "@/data";
 import { listProjects } from "@/data/selectors";
 import { isAssistantEnabled } from "@/lib/assistant/config";
 import "./globals.css";
@@ -38,7 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} scroll-smooth`}>
       <body className="min-h-screen bg-white text-gray-900 font-sans antialiased">
-        <AssistantProvider enabled={isAssistantEnabled()} projects={projects}>
+        <AssistantProvider
+          enabled={isAssistantEnabled()}
+          projects={projects}
+          contactEmail={contact.email}
+        >
           <Navigation />
           <main>{children}</main>
         </AssistantProvider>

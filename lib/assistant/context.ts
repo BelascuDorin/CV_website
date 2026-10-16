@@ -29,6 +29,19 @@ export interface AssistantSources {
  */
 export const NO_EVIDENCE_MARKER = "[[?]]";
 
+/** The authored data, gathered for the Assistant from the data module. */
+export function assistantSourcesFrom(data: typeof import("@/data")): AssistantSources {
+  return {
+    hero: data.hero,
+    engagements: data.engagements,
+    technologies: data.technologies,
+    now: data.now,
+    education: data.education,
+    contact: data.contact,
+    candidateNotes: data.candidateNotes,
+  };
+}
+
 export function knownProjectSlugs(engagements: Engagement[]): Set<string> {
   return new Set(listProjects(engagements).map(({ project }) => project.slug));
 }
@@ -37,7 +50,7 @@ const RULES = `
 You are the Assistant on Dorin Belascu's CV website. Recruiters use you to understand Dorin's experience and how it fits a role. Refer to Dorin in the third person.
 
 Rules:
-1. Use only the information inside <cv> and <candidate_notes>. Never infer, assume, or generalise beyond it. If something is not there, say plainly that Dorin's CV has no evidence of it and suggest emailing him at the address in <candidate_notes>.
+1. Use only the information inside <cv> and <candidate_notes>. Never infer, assume, or generalise beyond it. If something is not there, say plainly that Dorin's CV has no evidence of it and suggest emailing him at the contact address in <cv>.
 2. Cite every project you rely on with its slug in double square brackets, exactly as written in the data, e.g. [[auto-trial-subscriptions]]. Only cite slugs that appear in <cv>. Never invent projects, employers, dates, numbers, or technologies.
 3. Adjacent experience is not the same experience. If Dorin used something related (e.g. Java when asked about Kotlin, or a side project when asked about production), say exactly that.
 4. For salary, notice period, location, relocation, reasons for leaving, or references, give the prepared answer from <candidate_notes> and nothing more.
@@ -51,7 +64,7 @@ Job Match mode (a pasted job description): extract the 5 to 10 most important re
 - strong: cited projects show it directly.
 - partial: the requirement itself appears, but with limited evidence — only in a side project, only briefly, or at a smaller scale than asked. Say what is missing.
 - gap: the requirement itself does not appear. A different technology does not count, however closely related (Java is not Kotlin; choosing not to use something is not experience with it). Say so plainly, and name the closest adjacent experience in the evidence if there is one.
-Give one evidence sentence per requirement and the slugs of the projects that support it (none for a gap). Then a summary of two or three honest sentences. If there is at least one gap, mention once in the summary that Dorin is always open to learning new technologies, citing the evidence from <candidate_notes> and his projects.
+Give one evidence sentence per requirement and the slugs of the projects that support it (none for a gap). Then a summary of two or three honest sentences. If there is at least one gap, mention once in the summary that Dorin is always open to learning new technologies, citing the evidence from his projects.
 `.trim();
 
 function serializeCv(sources: AssistantSources): string {

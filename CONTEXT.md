@@ -16,7 +16,7 @@ _Placeholder_: "Full-stack engineer with 9+ years building products at scale and
 _Avoid_: Bio section, summary section, personal statement
 
 **Navigation**:
-A sticky top navigation bar with anchor links to each page section (Hero, Now, Work, Education, Contact). Remains visible as the user scrolls. Helps recruiters jump directly to the section most relevant to them. Also carries a button that opens the Assistant, so it is reachable from anywhere on the page.
+A sticky top navigation bar with anchor links to each page section (Hero, Now, Work, Education, Contact). Remains visible as the user scrolls. Helps recruiters jump directly to the section most relevant to them. Also carries a button that opens the Assistant, so it is reachable from anywhere on the page; below the `sm` breakpoint the bar is already full, so a floating button takes its place.
 _Avoid_: Header nav, menu, sidebar nav
 
 **Now Section**:
@@ -72,7 +72,7 @@ The set of links and actions available to reach Dorin: email (dorin.belascu@gmai
 _Avoid_: Footer links, social links
 
 **Assistant**:
-The AI helper that answers a recruiter's questions about Dorin's experience, opened in a drawer from the Hero and the Navigation. Has two modes, Job Match and Ask. Knows only what Dorin has authored — the Engagement/Project/Technology data, Project Notes, and Candidate Notes — and never infers beyond it: anything without evidence is stated plainly as unknown and pointed to Dorin's email. Every Project it cites links to that Project's card on the page. Can be switched off entirely, in which case its entry points disappear. See docs/adr/0004-assistant-grounded-in-authored-data.md.
+The AI helper that answers a recruiter's questions about Dorin's experience, opened in a drawer from the Hero and the Navigation. Has two modes, Job Match and Ask. Knows only what Dorin has authored — the Engagement/Project/Technology data, Project Notes, and Candidate Notes — and never infers beyond it: anything without evidence is stated plainly as unknown and pointed to Dorin's email. Every Project it cites links to that Project's card on the page. Can be switched off entirely with the `ASSISTANT_ENABLED` environment variable (off unless `"true"`), in which case its entry points disappear and its endpoint returns 404. See docs/adr/0004-assistant-grounded-in-authored-data.md.
 _Avoid_: Agent, bot, chatbot, AI, copilot
 
 **Job Match**:

@@ -12,8 +12,6 @@ import { requestAnswer, requestJobMatch, type AssistantFailure } from "./api";
 import type { AssistantMode, ProjectRef } from "./AssistantProvider";
 import { showProject } from "./showProject";
 
-const CONTACT_EMAIL = "dorin.belascu@gmail.com";
-
 const SUGGESTED_QUESTIONS = [
   "Has he led a team through a migration?",
   "What has he built with Next.js?",
@@ -26,6 +24,7 @@ interface AssistantDrawerProps {
   onModeChange: (mode: AssistantMode) => void;
   onClose: () => void;
   projects: ProjectRef[];
+  contactEmail: string;
 }
 
 interface AskMessage {
@@ -99,9 +98,11 @@ function CitationLink({ name, onClick }: { name: string; onClick: () => void }) 
 
 function FailureNotice({
   failure,
+  contactEmail,
   onBrowseWork,
 }: {
   failure: AssistantFailure;
+  contactEmail: string;
   onBrowseWork: () => void;
 }) {
   if (failure.kind === "invalid-input") {
@@ -132,7 +133,7 @@ function FailureNotice({
           Browse the Work section
         </button>
         <a
-          href={`mailto:${CONTACT_EMAIL}`}
+          href={`mailto:${contactEmail}`}
           className="rounded-full px-3.5 py-1.5 text-sm font-medium text-slate-700 ring-1 ring-slate-300 hover:bg-white"
         >
           Email Dorin
@@ -153,10 +154,12 @@ const STATUS_STYLE: Record<MatchStatus, { label: string; className: string }> = 
 function JobMatchResult({
   match,
   projectNames,
+  contactEmail,
   onCite,
 }: {
   match: JobMatch;
   projectNames: Map<string, string>;
+  contactEmail: string;
   onCite: (slug: string) => void;
 }) {
   return (
@@ -198,7 +201,7 @@ function JobMatchResult({
       </div>
 
       <a
-        href={`mailto:${CONTACT_EMAIL}`}
+        href={`mailto:${contactEmail}`}
         className="inline-flex rounded-full bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
       >
         Want to talk? Email Dorin
@@ -215,13 +218,13 @@ export default function AssistantDrawer({
   onModeChange,
   onClose,
   projects,
+  contactEmail,
 }: AssistantDrawerProps) {
   const projectNames = useMemo(
     () => new Map(projects.map((p) => [p.slug, p.name])),
     [projects]
   );
 
-  const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement | null>(null);
   const answerEndRef = useRef<HTMLDivElement>(null);
 
@@ -348,7 +351,6 @@ export default function AssistantDrawer({
       />
 
       <div
-        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="assistant-title"
@@ -442,9 +444,20 @@ export default function AssistantDrawer({
                   projects…
                 </p>
               )}
-              {matchFailure && <FailureNotice failure={matchFailure} onBrowseWork={browseWork} />}
+              {matchFailure && (
+                <FailureNotice
+                  failure={matchFailure}
+                  contactEmail={contactEmail}
+                  onBrowseWork={browseWork}
+                />
+              )}
               {match && (
-                <JobMatchResult match={match} projectNames={projectNames} onCite={cite} />
+                <JobMatchResult
+                  match={match}
+                  projectNames={projectNames}
+                  contactEmail={contactEmail}
+                  onCite={cite}
+                />
               )}
             </div>
           ) : (
@@ -488,7 +501,13 @@ export default function AssistantDrawer({
                 ) : null
               )}
 
-              {askFailure && <FailureNotice failure={askFailure} onBrowseWork={browseWork} />}
+              {askFailure && (
+                <FailureNotice
+                  failure={askFailure}
+                  contactEmail={contactEmail}
+                  onBrowseWork={browseWork}
+                />
+              )}
               <div ref={answerEndRef} />
             </div>
           )}

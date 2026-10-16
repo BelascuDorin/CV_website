@@ -260,13 +260,13 @@ const engagements: Engagement[] = [
         slug: "cv-website",
         name: "This site",
         description:
-          "The site you are reading, with an AI assistant that matches job descriptions against this CV and answers questions about my experience — built spec-first, with the domain model and decisions written before any code.",
+          "The site you are reading, with an Assistant that matches job descriptions against this CV and answers questions about my experience — built spec-first, with the domain model and decisions written before any code.",
         outcomes: [
           "Domain model in CONTEXT.md and decisions in docs/adr/ precede the implementation.",
         ],
         url: "https://github.com/BelascuDorin/CV_website",
         notes:
-          "The assistant sends the whole authored CV as cached context on every request instead of using retrieval, because the data is about ten thousand tokens and retrieval would only add a way to miss the relevant project. The model cites projects by slug, and the server drops any citation to a project that does not exist before it renders, so the no-invention rule is enforced in code rather than only asked of the model. Cost and abuse are bounded by a prepaid credit ceiling, per-IP rate limits, input caps, and a kill switch; an outage shows a fallback pointing back to the page rather than silently switching to a weaker model. Quality is checked with a manual eval of synthetic job descriptions and questions with expected answers.",
+          "The Assistant sends the whole authored CV as cached context on every request instead of using retrieval, because the data is about ten thousand tokens and retrieval would only add a way to miss the relevant project. The model cites projects by slug, and the server drops any citation to a project that does not exist before it renders, so the no-invention rule is enforced in code rather than only asked of the model. Cost and abuse are bounded by a prepaid credit ceiling, per-IP rate limits, input caps, and a kill switch; an outage shows a fallback pointing back to the page rather than silently switching to a weaker model. Quality is checked with a manual eval of synthetic job descriptions and questions with expected answers.",
         technologies: [
           { technologyId: "nextjs" },
           { technologyId: "react" },
@@ -286,7 +286,7 @@ const engagements: Engagement[] = [
           {
             technologyId: "upstash-redis",
             problem:
-              "One store for per-IP rate limiting and an anonymous log of questions the assistant couldn't answer.",
+              "One store for per-IP rate limiting and an anonymous log of questions the Assistant couldn't answer.",
           },
           {
             technologyId: "ai-integration",
