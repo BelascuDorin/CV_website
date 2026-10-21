@@ -113,6 +113,17 @@ const engagements: Engagement[] = [
           { technologyId: "react" },
         ],
       },
+      {
+        slug: "grubhub-release-management",
+        name: "Release management and pipeline ownership",
+        description:
+          "Release management at Grubhub, and owner of several repositories and their pipelines — including one of the static pages repositories.",
+        outcomes: [],
+        technologies: [
+          { technologyId: "release-management" },
+          { technologyId: "ci-cd" },
+        ],
+      },
     ],
   },
 
@@ -402,6 +413,13 @@ const engagements: Engagement[] = [
           { technologyId: "javascript" },
         ],
       },
+      {
+        slug: "urbio-release-management",
+        name: "Release management",
+        description: "Ran release management for the urb.io platform.",
+        outcomes: [],
+        technologies: [{ technologyId: "release-management" }],
+      }
     ],
   },
 

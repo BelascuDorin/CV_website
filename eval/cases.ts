@@ -316,6 +316,16 @@ export const askCases: AskCase[] = [
     expectUnanswered: false,
   },
   {
+    id: "release-management",
+    question: "Has he done release management or owned CI/CD pipelines?",
+    checklist: [
+      "Mentions release management at both urb.io and Grubhub",
+      "Mentions owning repositories and their pipelines at Grubhub, including a static pages repository",
+      "Does not invent specific tools, release cadences, or numbers",
+    ],
+    expectUnanswered: false,
+  },
+  {
     id: "mentoring",
     question: "Is he good at mentoring?",
     checklist: [

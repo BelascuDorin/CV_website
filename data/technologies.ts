@@ -70,6 +70,12 @@ const technologies: Technology[] = [
   },
   { id: "ai-integration", name: "AI Integration", category: "Practices" },
   {
+    id: "release-management",
+    name: "Release Management",
+    category: "Practices",
+  },
+  { id: "ci-cd", name: "CI/CD Pipelines", category: "Practices" },
+  {
     id: "project-management",
     name: "Project Management",
     category: "Practices",
