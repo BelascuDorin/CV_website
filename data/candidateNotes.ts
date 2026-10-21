@@ -16,7 +16,11 @@
 const candidateNotes = `
 ## What Dorin is looking for
 
-Senior engineering roles where product thinking is valued as much as technical depth.
+Dorin is actively looking for new opportunities: senior engineering roles where product thinking is valued as much as technical depth. Specifically, he wants more ownership across the entire project, and the chance to work more on backend, infrastructure, and AI implementations.
+
+## Why he wants to leave Grubhub
+
+Grubhub taught him a great deal about building with very high reliability: a product with many users, where a small mistake can cost the business a lot. But it is a well-established company with a lot of process, which limits the ownership he can take and the technology stack he can work with. He is looking for a role with more end-to-end ownership and broader technical scope, as described above.
 
 ## Learning new technologies
 
@@ -28,7 +32,7 @@ Dorin is always open to learning and working with new technologies, and picks th
 - **Availability and notice period:** Dorin can start with two weeks' notice.
 - **Location and remote work:** Dorin is based in Cluj-Napoca, Romania, and is looking for remote-only roles.
 - **Relocation:** Dorin is not open to relocating.
-- **Reasons for leaving a role:** not stated here beyond what the dates and projects show. Do not speculate; invite the recruiter to email him.
+- **Reasons for leaving a role:** for Grubhub, give the answer above. For any other role, nothing is stated beyond what the dates and projects show — do not speculate; invite the recruiter to email him.
 - **References:** available on request by email.
 `.trim();
 

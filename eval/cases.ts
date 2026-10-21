@@ -326,6 +326,24 @@ export const askCases: AskCase[] = [
     expectUnanswered: false,
   },
   {
+    id: "looking",
+    question: "Is he looking for a new job right now?",
+    checklist: [
+      "Says Dorin is actively looking for new opportunities",
+      "Mentions wanting more ownership and more work on backend, infrastructure, or AI",
+    ],
+  },
+  {
+    id: "why-leave-grubhub",
+    question: "Why does he want to leave Grubhub?",
+    checklist: [
+      "Credits Grubhub with teaching him to build with high reliability at scale",
+      "Explains that established processes limit his ownership and technology stack there",
+      "Says he wants more end-to-end ownership and more backend, infrastructure, or AI work",
+      "Stays professional and does not disparage Grubhub",
+    ],
+  },
+  {
     id: "mentoring",
     question: "Is he good at mentoring?",
     checklist: [
