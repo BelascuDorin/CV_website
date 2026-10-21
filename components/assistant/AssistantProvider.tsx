@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import AssistantButton from "./AssistantButton";
 import AssistantDrawer from "./AssistantDrawer";
 
@@ -36,6 +44,10 @@ interface AssistantProviderProps {
 /**
  * Owns the drawer's open state and mode. The drawer stays mounted once opened,
  * so closing it to follow a citation and reopening it keeps the conversation.
+ *
+ * Opening adds a history entry for the same URL, so the phone's Back button
+ * closes the drawer instead of leaving the site. Every close goes back through
+ * that entry, which keeps the history stack exactly as the visitor found it.
  */
 export default function AssistantProvider({
   enabled,
@@ -47,10 +59,45 @@ export default function AssistantProvider({
   const [hasOpened, setHasOpened] = useState(false);
   const [mode, setMode] = useState<AssistantMode>("job-match");
 
+  /** Whether the drawer's history entry is currently on the stack. */
+  const hasHistoryEntry = useRef(false);
+  /** Runs once the drawer has closed, e.g. scrolling to a cited Project. */
+  const afterClose = useRef<(() => void) | null>(null);
+
   const open = useCallback((next?: AssistantMode) => {
     if (next) setMode(next);
     setIsOpen(true);
     setHasOpened(true);
+    if (!hasHistoryEntry.current) {
+      window.history.pushState(null, "", window.location.href);
+      hasHistoryEntry.current = true;
+    }
+  }, []);
+
+  const close = useCallback((then?: () => void) => {
+    afterClose.current = then ?? null;
+    if (hasHistoryEntry.current) {
+      // The popstate handler below finishes the close.
+      window.history.back();
+    } else {
+      setIsOpen(false);
+      afterClose.current?.();
+      afterClose.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (!hasHistoryEntry.current) return;
+      hasHistoryEntry.current = false;
+      setIsOpen(false);
+      const then = afterClose.current;
+      afterClose.current = null;
+      // After the browser has restored the scroll position for this entry.
+      if (then) requestAnimationFrame(then);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
   const controls = useMemo(() => ({ open }), [open]);
@@ -66,7 +113,7 @@ export default function AssistantProvider({
           isOpen={isOpen}
           mode={mode}
           onModeChange={setMode}
-          onClose={() => setIsOpen(false)}
+          onClose={close}
           projects={projects}
           contactEmail={contactEmail}
         />

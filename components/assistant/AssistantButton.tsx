@@ -32,7 +32,7 @@ export default function AssistantButton({ variant }: AssistantButtonProps) {
       <button
         type="button"
         onClick={() => assistant.open()}
-        className="fixed right-4 bottom-4 z-50 cursor-pointer rounded-full bg-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-slate-900 sm:hidden"
+        className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 cursor-pointer rounded-full bg-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-slate-900 sm:hidden"
       >
         Assistant
       </button>

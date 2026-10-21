@@ -22,7 +22,8 @@ interface AssistantDrawerProps {
   isOpen: boolean;
   mode: AssistantMode;
   onModeChange: (mode: AssistantMode) => void;
-  onClose: () => void;
+  /** Closes the drawer, then runs `then` once it has closed. */
+  onClose: (then?: () => void) => void;
   projects: ProjectRef[];
   contactEmail: string;
 }
@@ -210,6 +211,40 @@ function JobMatchResult({
   );
 }
 
+// ─── Mobile viewport ─────────────────────────────────────────────────────────
+
+/** Phones and tablets: no autofocus, so the keyboard doesn't cover the drawer on open. */
+function isTouchDevice(): boolean {
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+/**
+ * The visible area while the drawer is open. On iOS the on-screen keyboard
+ * shrinks only the visual viewport, so a full-height fixed panel would put its
+ * input underneath the keyboard; sizing the panel to the visual viewport keeps
+ * the input above it. (Android resizes the layout itself — see `viewport` in
+ * app/layout.tsx.)
+ */
+function useVisualViewport(active: boolean) {
+  const [box, setBox] = useState<{ top: number; height: number } | null>(null);
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!active || !viewport) return;
+    const update = () => setBox({ top: viewport.offsetTop, height: viewport.height });
+    update();
+    viewport.addEventListener("resize", update);
+    viewport.addEventListener("scroll", update);
+    return () => {
+      viewport.removeEventListener("resize", update);
+      viewport.removeEventListener("scroll", update);
+      setBox(null);
+    };
+  }, [active]);
+
+  return box;
+}
+
 // ─── Drawer ──────────────────────────────────────────────────────────────────
 
 export default function AssistantDrawer({
@@ -227,6 +262,8 @@ export default function AssistantDrawer({
 
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement | null>(null);
   const answerEndRef = useRef<HTMLDivElement>(null);
+  const matchResultRef = useRef<HTMLDivElement>(null);
+  const viewport = useVisualViewport(isOpen);
 
   // Job Match state
   const [jobDescription, setJobDescription] = useState("");
@@ -257,8 +294,15 @@ export default function AssistantDrawer({
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    if (isOpen) inputRef.current?.focus();
+    if (isOpen && !isTouchDevice()) inputRef.current?.focus();
   }, [isOpen, mode]);
+
+  // On a phone the result starts below a tall form; bring it into view.
+  useEffect(() => {
+    if (match || matchFailure) {
+      matchResultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [match, matchFailure]);
 
   useEffect(() => {
     answerEndRef.current?.scrollIntoView({ block: "end" });
@@ -266,18 +310,22 @@ export default function AssistantDrawer({
 
   /** Citations close the drawer so the card is visible; state is kept for reopening. */
   function cite(slug: string) {
-    onClose();
-    showProject(slug);
+    onClose(() => showProject(slug));
   }
 
   function browseWork() {
-    onClose();
-    document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+    onClose(() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" }));
+  }
+
+  /** Drops the on-screen keyboard after sending, so the answer has the screen. */
+  function dismissKeyboard() {
+    if (isTouchDevice()) (document.activeElement as HTMLElement | null)?.blur();
   }
 
   async function submitJobMatch(e: React.FormEvent) {
     e.preventDefault();
     if (isMatching || !jobDescription.trim()) return;
+    dismissKeyboard();
     setIsMatching(true);
     setMatch(null);
     setMatchFailure(null);
@@ -304,6 +352,7 @@ export default function AssistantDrawer({
     const conversation: ConversationTurn[] = [...history, { role: "user", content }];
 
     setQuestion("");
+    dismissKeyboard();
     setAskFailure(null);
     setIsAnswering(true);
     setMessages((prev) => [
@@ -340,11 +389,12 @@ export default function AssistantDrawer({
   return (
     <div
       className={`fixed inset-0 z-[60] ${isOpen ? "" : "pointer-events-none"}`}
+      style={viewport ? { top: viewport.top, height: viewport.height, bottom: "auto" } : undefined}
       aria-hidden={!isOpen}
     >
       {/* Backdrop */}
       <div
-        onClick={onClose}
+        onClick={() => onClose()}
         className={`absolute inset-0 bg-slate-900/30 transition-opacity duration-200 ${
           isOpen ? "opacity-100" : "opacity-0"
         }`}
@@ -361,25 +411,28 @@ export default function AssistantDrawer({
         }`}
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 pt-5 pb-4">
-          <div>
-            <h2 id="assistant-title" className="text-lg font-bold text-gray-900">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-200 py-2 pr-2 pl-5 pt-[max(0.5rem,env(safe-area-inset-top))] sm:py-4 sm:pr-3">
+          <div className="min-w-0">
+            <h2 id="assistant-title" className="text-base font-bold text-gray-900 sm:text-lg">
               Assistant
             </h2>
-            <p className="text-sm text-gray-500">Answers only from Dorin&apos;s CV.</p>
+            <p className="text-xs text-gray-500 sm:text-sm">Answers only from Dorin&apos;s CV.</p>
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => onClose()}
             aria-label="Close the Assistant"
-            className="-mr-1 cursor-pointer rounded-full p-1.5 text-xl leading-none text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+            className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-2xl leading-none text-gray-500 hover:bg-gray-100 hover:text-gray-800"
           >
             ×
           </button>
         </div>
 
         {/* Mode tabs */}
-        <div role="tablist" className="flex gap-1 border-b border-slate-200 px-5 py-2">
+        <div
+          role="tablist"
+          className="grid grid-cols-2 gap-1 border-b border-slate-200 px-5 py-2 sm:flex"
+        >
           {(
             [
               ["job-match", "Job Match"],
@@ -392,7 +445,7 @@ export default function AssistantDrawer({
               role="tab"
               aria-selected={mode === value}
               onClick={() => onModeChange(value)}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
+              className={`cursor-pointer rounded-full px-3.5 py-2 text-sm font-medium transition-colors sm:py-1.5 ${
                 mode === value
                   ? "bg-slate-600 text-white"
                   : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
@@ -404,7 +457,7 @@ export default function AssistantDrawer({
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="flex-1 overscroll-contain overflow-y-auto px-5 py-4 sm:py-5">
           {mode === "job-match" ? (
             <div className="space-y-5">
               <form onSubmit={submitJobMatch} className="space-y-2">
@@ -419,9 +472,9 @@ export default function AssistantDrawer({
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
                   maxLength={MAX_JOB_DESCRIPTION_CHARS}
-                  rows={match ? 4 : 10}
+                  rows={match ? 4 : 8}
                   placeholder="Requirements, responsibilities, nice-to-haves…"
-                  className="w-full resize-y rounded-xl border border-slate-300 p-3 text-sm text-gray-800 outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+                  className="w-full resize-y rounded-xl border border-slate-300 p-3 text-base text-gray-800 sm:text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                 />
                 <div className="flex items-center justify-between gap-3">
                   <span className="text-xs text-gray-400">
@@ -444,6 +497,7 @@ export default function AssistantDrawer({
                   projects…
                 </p>
               )}
+              <div ref={matchResultRef} aria-hidden="true" />
               {matchFailure && (
                 <FailureNotice
                   failure={matchFailure}
@@ -514,7 +568,7 @@ export default function AssistantDrawer({
         </div>
 
         {/* Footer: Ask input and the disclosure */}
-        <div className="border-t border-slate-200 px-5 py-3">
+        <div className="border-t border-slate-200 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {mode === "ask" &&
             (atTurnLimit ? (
               <div className="mb-3 flex items-center justify-between gap-3 text-sm text-gray-600">
@@ -544,7 +598,7 @@ export default function AssistantDrawer({
                   maxLength={MAX_QUESTION_CHARS}
                   placeholder="Ask about Dorin's experience…"
                   aria-label="Your question"
-                  className="min-w-0 flex-1 rounded-full border border-slate-300 px-4 py-2 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+                  className="min-w-0 flex-1 rounded-full border border-slate-300 px-4 py-2 text-base outline-none sm:text-sm focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                 />
                 <button
                   type="submit"
@@ -555,7 +609,7 @@ export default function AssistantDrawer({
                 </button>
               </form>
             ))}
-          <p className="text-xs leading-snug text-gray-400">
+          <p className="text-[11px] leading-snug text-gray-400 sm:text-xs">
             Questions the Assistant can&apos;t answer are logged anonymously so Dorin can
             improve it. Please don&apos;t paste personal information.
           </p>

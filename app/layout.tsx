@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import AssistantProvider from "@/components/assistant/AssistantProvider";
@@ -28,6 +28,16 @@ export const metadata: Metadata = {
       "Full-stack engineer with 9+ years building products at scale and in early-stage startups.",
     type: "website",
   },
+};
+
+/**
+ * `resizes-content` makes Android shrink the page, rather than cover it, when
+ * the on-screen keyboard opens, so the Assistant drawer's input stays visible.
+ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({
